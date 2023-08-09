@@ -88,26 +88,27 @@ def set_version_family():
     else:
         current_version = get_version_from_build(cassandra_dir)
 
-    # TODO add a new item whenever Cassandra is branched
-    if current_version.vstring.startswith('2.0'):
-        version_family = CASSANDRA_2_0
-    elif current_version.vstring.startswith('2.1'):
-        version_family = CASSANDRA_2_1
-    elif current_version.vstring.startswith('2.2'):
-        version_family = CASSANDRA_2_2
-    elif current_version.vstring.startswith('3.0'):
-        version_family = CASSANDRA_3_0
-    elif current_version.vstring.startswith('3.11'):
-        version_family = CASSANDRA_3_11
-    elif current_version.vstring.startswith('4.0'):
-        version_family = CASSANDRA_4_0
-    elif current_version.vstring.startswith('4.1'):
-        version_family = CASSANDRA_4_1
-    elif current_version.vstring.startswith('5.0'):
-        version_family = CASSANDRA_5_0
-    else:
-        # when this occurs, it's time to update this manifest a bit!
-        raise RuntimeError("Testing upgrades from/to version %s is not supported. Please use a custom manifest (see upgrade_manifest.py)" % current_version.vstring)
+    version_family = CASSANDRA_4_1
+    # # TODO add a new item whenever Cassandra is branched
+    # if current_version.vstring.startswith('2.0'):
+    #     version_family = CASSANDRA_2_0
+    # elif current_version.vstring.startswith('2.1'):
+    #     version_family = CASSANDRA_2_1
+    # elif current_version.vstring.startswith('2.2'):
+    #     version_family = CASSANDRA_2_2
+    # elif current_version.vstring.startswith('3.0'):
+    #     version_family = CASSANDRA_3_0
+    # elif current_version.vstring.startswith('3.11'):
+    #     version_family = CASSANDRA_3_11
+    # elif current_version.vstring.startswith('4.0'):
+    #     version_family = CASSANDRA_4_0
+    # elif current_version.vstring.startswith('4.1'):
+    #     version_family = CASSANDRA_4_1
+    # elif current_version.vstring.startswith('5.0'):
+    #     version_family = CASSANDRA_5_0
+    # else:
+    #     # when this occurs, it's time to update this manifest a bit!
+    #     raise RuntimeError("Testing upgrades from/to version %s is not supported. Please use a custom manifest (see upgrade_manifest.py)" % current_version.vstring)
 
     global VERSION_FAMILY
     VERSION_FAMILY = version_family

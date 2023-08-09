@@ -258,6 +258,7 @@ def copy_logs(request, cluster, directory=None, name=None):
     except OSError:
         pass
 
+    return
     if directory is None:
         directory = log_saved_dir
     if name is None:

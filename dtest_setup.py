@@ -18,6 +18,7 @@ from cassandra.cluster import EXEC_PROFILE_DEFAULT
 from cassandra.policies import WhiteListRoundRobinPolicy
 from ccmlib.common import is_win
 from ccmlib.cluster import Cluster
+from ccmlib.scylla_cluster import ScyllaCluster
 
 from dtest import (get_ip_from_node, make_execution_profile, get_auth_provider, get_port_from_node,
                    get_eager_protocol_version, hack_legacy_parsing)
@@ -503,14 +504,21 @@ class DTestSetup(object):
         logger.info("cluster ccm directory: " + dtest_setup.test_path)
         version = dtest_setup.dtest_config.cassandra_version
 
-        if version:
-            cluster = Cluster(dtest_setup.test_path, dtest_setup.cluster_name, cassandra_version=version)
-        else:
-            cluster = Cluster(dtest_setup.test_path, dtest_setup.cluster_name, cassandra_dir=dtest_setup.dtest_config.cassandra_dir)
+        # if version:
+        #     cluster = Cluster(dtest_setup.test_path, dtest_setup.cluster_name, cassandra_version=version)
+        # else:
+        #     cluster = Cluster(dtest_setup.test_path, dtest_setup.cluster_name, cassandra_dir=dtest_setup.dtest_config.cassandra_dir)
 
-        cluster.set_datadir_count(dtest_setup.dtest_config.data_dir_count)
-        cluster.set_environment_variable('CASSANDRA_LIBJEMALLOC', dtest_setup.dtest_config.jemalloc_path)
+        cluster = ScyllaCluster(path="/root/.ccm/",
+                                name="liulan",
+                                install_dir="/liulan/indexer-src",
+                                # create_directory=False,
+                                verbose=True)
 
+        # cluster.set_datadir_count(dtest_setup.dtest_config.data_dir_count)
+        # cluster.set_environment_variable('CASSANDRA_LIBJEMALLOC', dtest_setup.dtest_config.jemalloc_path)
+
+        logger.info("Done: cluster ccm directory: " + dtest_setup.test_path)
         return cluster
 
     def set_cluster_log_levels(self):
@@ -547,6 +555,7 @@ class DTestSetup(object):
         self.maybe_setup_jacoco()
         self.set_cluster_log_levels()
 
+        logger.info("Done initialize_cluster")
         # cls.init_config()
         # write_last_test_file(cls.test_path, cls.cluster)
 
